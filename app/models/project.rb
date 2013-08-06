@@ -95,6 +95,14 @@ class Project < ActiveRecord::Base
     touch
   end
 
+  def delete_localizations_and_blurbs
+    transaction do
+      blurb_ids = Blurb.select('id').where(:project_id => self.id).map(&:id)
+      Localization.where(:blurb_id => blurb_ids).delete_all
+      Blurb.where(:project_id => self.id).delete_all
+    end
+  end
+
   private
 
   def create_caches
@@ -104,14 +112,6 @@ class Project < ActiveRecord::Base
 
   def create_english_locale
     locales.create! :key => 'en'
-  end
-
-  def delete_localizations_and_blurbs
-    transaction do
-      blurb_ids = Blurb.select('id').where(:project_id => self.id).map(&:id)
-      Localization.where(:blurb_id => blurb_ids).delete_all
-      Blurb.where(:project_id => self.id).delete_all
-    end
   end
 
   def generate_api_key
@@ -125,3 +125,4 @@ class Project < ActiveRecord::Base
     blurbs_hash
   end
 end
+

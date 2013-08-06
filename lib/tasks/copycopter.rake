@@ -14,6 +14,13 @@ namespace :copycopter do
     end
   end
 
+  desc 'Clears blurbs from project'
+  task :clear_blurbs => :environment do
+    project = Project.where(:name => ENV['NAME']).first
+    project.delete_localizations_and_blurbs
+    puts "Project #{project.name} cleared!"
+  end
+
   desc 'Remove the project from Copycopter'
   task :remove_project => :environment do
     project = Project.where(:name => ENV['NAME']).first
@@ -39,3 +46,4 @@ namespace :copycopter do
     end
   end
 end
+
