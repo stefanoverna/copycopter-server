@@ -10,13 +10,13 @@ describe Localization do
   it { should validate_presence_of(:locale_id) }
 
   it 'should have a collection of versions' do
-    (Factory(:localization).respond_to?(:versions)).should be
-    Factory(:localization).versions.first.should_not be_nil
+    (create(:localization).respond_to?(:versions)).should be
+    create(:localization).versions.first.should_not be_nil
   end
 
   describe 'a localization with two revisions' do
     before do
-      @localization = Factory(:localization, :draft_content => 'default')
+      @localization = create(:localization, :draft_content => 'default')
       @second = @localization.revise(:content => 'We <i>sell</i> delicious muffings!')
       @second.save!
       @third = @localization.
@@ -37,8 +37,8 @@ describe Localization do
 
   it 'copies draft content when published' do
     new_content = 'publish me'
-    localization = Factory(:localization)
-    version = Factory(:version, :localization => localization, :content => new_content)
+    localization = create(:localization)
+    version = create(:version, :localization => localization, :content => new_content)
 
     localization.publish
 
@@ -48,7 +48,7 @@ describe Localization do
 
   it 'creates the first version without counting versions' do
     Version.stubs(:count => 0)
-    localization = Factory.build(:localization)
+    localization = build(:localization)
 
     localization.save!
 
@@ -57,26 +57,26 @@ describe Localization do
   end
 
   it 'returns a key with locale' do
-    blurb = Factory.build(:blurb, :key => 'test.key')
-    locale = Factory.build(:locale, :key => 'es')
-    localization = Factory.build(:localization, :blurb => blurb, :locale => locale)
+    blurb = build(:blurb, :key => 'test.key')
+    locale = build(:locale, :key => 'es')
+    localization = build(:localization, :blurb => blurb, :locale => locale)
     localization.key_with_locale.should == 'es.test.key'
   end
 
   it 'returns a key without locale' do
-    blurb = Factory.build(:blurb, :key => 'test.key')
-    locale = Factory.build(:locale, :key => 'es')
-    localization = Factory.build(:localization, :blurb => blurb, :locale => locale)
+    blurb = build(:blurb, :key => 'test.key')
+    locale = build(:locale, :key => 'es')
+    localization = build(:localization, :blurb => blurb, :locale => locale)
     localization.key.should == 'test.key'
   end
 
   it 'returns project of blurb' do
-    localization = Factory.build(:localization)
+    localization = build(:localization)
     localization.project.should == localization.blurb.project
   end
 
   it 'orders by key' do
-    project = Factory(:project)
+    project = create(:project)
     project.create_defaults(
       'en.def' => 'one',
       'en.abc' => 'two',
@@ -87,7 +87,7 @@ describe Localization do
   end
 
   context '#as_json' do
-    subject { Factory(:localization) }
+    subject { create(:localization) }
     let(:json) { subject.as_json.stringify_keys }
 
     %w(id key draft_content).each do |attribute|
@@ -98,16 +98,16 @@ describe Localization do
   end
 
   context '#in_locale' do
-    let!(:project) { Factory(:project) }
-    let!(:locale) { Factory(:locale, :project => project) }
-    let!(:other_locale) { Factory(:locale, :project => project) }
+    let!(:project) { create(:project) }
+    let!(:locale) { create(:locale, :project => project) }
+    let!(:other_locale) { create(:locale, :project => project) }
 
     let!(:localizations) do
-      [Factory(:localization, :locale => locale),
-       Factory(:localization, :locale => locale)]
+      [create(:localization, :locale => locale),
+       create(:localization, :locale => locale)]
     end
 
-    let!(:other_localization) { Factory(:localization, :locale => other_locale) }
+    let!(:other_localization) { create(:localization, :locale => other_locale) }
     let!(:result) { Localization.in_locale(locale).to_a }
 
     it 'returns only localizations for the given locale' do
@@ -116,7 +116,7 @@ describe Localization do
   end
 
   context '#alternates' do
-    let(:project) { Factory(:project) }
+    let(:project) { create(:project) }
     let(:enabled_locales) { project.locales.where(:key => %w(en es)) }
     let(:disabled_locale) { project.locales.where(:key => 'de').first }
 
@@ -197,3 +197,4 @@ describe Localization, '.publish' do
     localization_not_to_be_published.updated_at.should_not == Time.now
   end
 end
+

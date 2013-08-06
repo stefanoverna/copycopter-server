@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ProjectsController, 'show' do
   before do
-    @project = Factory(:project)
+    @project = create(:project)
     @project.create_defaults 'en.test' => 'value'
   end
 
@@ -20,3 +20,4 @@ describe ProjectsController, 'show' do
     response.should have_received(:etag=).with(@project.reload.etag)
   end
 end
+

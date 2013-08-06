@@ -8,12 +8,12 @@ describe Version do
   it { should allow_mass_assignment_of(:published) }
 
   it 'uses a preassigned number' do
-    Factory(:version, :number => 3).reload.number.should == 3
+    create(:version, :number => 3).reload.number.should == 3
   end
 end
 
 describe Version, 'valid?' do
-  subject { Factory.build :version }
+  subject { build :version }
 
   it 'delegates project to localization' do
     subject.project.should == subject.localization.project
@@ -21,7 +21,7 @@ describe Version, 'valid?' do
 end
 
 describe Version, 'revised without new content' do
-  let(:previous_version) { Factory :version, :content => 'hello' }
+  let(:previous_version) { create :version, :content => 'hello' }
   subject { previous_version.revise }
 
   it 'has the same localization' do
@@ -34,7 +34,7 @@ describe Version, 'revised without new content' do
 end
 
 describe Version, 'revised with new content' do
-  let(:previous_version) { Factory :version }
+  let(:previous_version) { create :version }
   let(:revised_content) { 'new content' }
   let(:localization) { subject.localization }
   subject { previous_version.revise :content => revised_content }
@@ -70,7 +70,7 @@ describe Version, 'revised with new content' do
 end
 
 describe Version, 'published' do
-  subject { Factory(:published_version) }
+  subject { create(:published_version) }
 
   it 'generates a published version when revised' do
     subject.revise.should be_published

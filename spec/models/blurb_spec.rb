@@ -9,16 +9,16 @@ describe Blurb do
   it { should validate_presence_of(:project_id) }
 
   it 'orders by key' do
-    blurb_z = Factory(:blurb, :key => 'zzz')
-    blurb_a = Factory(:blurb, :key => 'aaa')
+    blurb_z = create(:blurb, :key => 'zzz')
+    blurb_a = create(:blurb, :key => 'aaa')
     expected = [blurb_a, blurb_z]
 
     Blurb.ordered.should == expected
   end
 
   it 'finds keys' do
-    Factory :blurb, :key => 'test.one'
-    Factory :blurb, :key => 'test.two'
+    create :blurb, :key => 'test.one'
+    create :blurb, :key => 'test.two'
 
     Blurb.keys.should =~ %w(test.one test.two)
   end
@@ -26,21 +26,21 @@ end
 
 describe Blurb, 'given draft and published content for several blurbs and locales' do
   before do
-    project = Factory(:project)
+    project = create(:project)
     en = project.locales.first
-    fr = Factory(:locale, :key => 'fr', :project => project)
-    one = Factory(:blurb, :key => 'test.one', :project => project)
-    two = Factory(:blurb, :key => 'test.two', :project => project)
+    fr = create(:locale, :key => 'fr', :project => project)
+    one = create(:blurb, :key => 'test.one', :project => project)
+    two = create(:blurb, :key => 'test.two', :project => project)
 
-    Factory :localization, :blurb              => one,
+    create :localization, :blurb              => one,
                            :locale            => en,
                            :draft_content     => 'draft one',
                            :published_content => 'published one'
-    Factory :localization, :blurb             => two,
+    create :localization, :blurb             => two,
                            :locale            => en,
                            :draft_content     => 'draft two',
                            :published_content => 'published two'
-    Factory :localization, :blurb             => two,
+    create :localization, :blurb             => two,
                            :locale            => fr,
                            :draft_content     => 'ébauche',
                            :published_content => 'publié'

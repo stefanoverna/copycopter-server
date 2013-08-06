@@ -1,3 +1,5 @@
+require 'timeout'
+
 Then %r{^I should see "([^"]*)" before "([^"]*)"$} do |text1, text2|
   response_body.should =~ %r{#{Regexp.escape(text1)}.*?#{Regexp.escape(text2)}}m
 end
@@ -14,7 +16,9 @@ Then /^no visible elements should contain "([^"]*)"$/ do |text|
   elements = page.all(:xpath, %{//*[contains(child::text(), "#{text}")]})
 
   elements.each do |element|
-    Capybara.timeout { !element.visible? }
+    Timeout::timeout(5) {
+      !element.visible?
+    }
   end
 end
 
@@ -43,3 +47,4 @@ When /^I focus the "([^"]*)" field$/ do |label|
   field = find_field(label)
   field.trigger 'focus'
 end
+

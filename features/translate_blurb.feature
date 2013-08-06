@@ -48,3 +48,4 @@ Feature: translate blurbs
     When I follow "Locale: en"
     And I follow "es"
     Then the "es" locale should be selected
+

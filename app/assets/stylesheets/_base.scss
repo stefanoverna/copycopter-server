@@ -22,11 +22,10 @@ $mono: 'Andale Mono', 'Lucida Console', 'Courier New', Courier, monospace;
 ---------------------------------------- */
 
 body {
-  background: #b9d7e1 image-url('canvas-bg.jpg');
-  background: image-url('body-glow.png') no-repeat top center,
-              #b9d7e1 image-url('canvas-bg.jpg');
+  background-color: #f1f1f1;
   font-family: $body;
   text-align: center;
+  font-size: 0.8em;
 
   &.blurbs {
     overflow-y: scroll;
@@ -96,7 +95,7 @@ a:hover {
 input[type='submit'], button {
   @include box-shadow(inset 0 1px 0 #c4e1b7);
   @include linear-gradient(#88c26f, #73b05a);
-  @include border-radius(5px);
+  border-radius: 5px;
   -webkit-font-smoothing: antialiased;
   border: 1px solid #49912c;
   color: #fff;
@@ -182,7 +181,7 @@ fieldset.inputs {
 #flash_failure,
 #flash_notice,
 #flash_success {
-  @include border-radius(0);
+  border-radius: 0;
   border: 0;
   font: bold 14px $header;
   line-height: 1.4;
@@ -293,7 +292,7 @@ body.projects-new li.projects a {
 }
 
 #content {
-  @include border-radius(5px);
+  border-radius: 5px;
   @include box-shadow(0 1px 5px #8ab3c2);
   @extend .clearfix;
   background: #fff image-url('content-bg.jpg') repeat-x bottom;
@@ -302,7 +301,7 @@ body.projects-new li.projects a {
   position: relative;
 
   .content-header {
-    @include border-radius(5px 5px 0 0);
+    border-radius: 5px 5px 0 0;
     @extend .clearfix;
     background: #e8f4f8 image-url('header-glow.jpg') repeat-x bottom;
     border-bottom: 1px solid #abc2c9;
@@ -312,7 +311,7 @@ body.projects-new li.projects a {
 
     h2 {
       float: left;
-      font: 16px $header;
+      font: 18px $header;
       padding-right: 35px;
       text-shadow: 0 1px 0 #fff;
 
@@ -344,7 +343,7 @@ body.projects-new li.projects a {
       width: 25px;
 
       &:hover {
-        @include border-radius(5px);
+        border-radius: 5px;
         @include box-shadow(0 1px 3px #aed8e8);
         background: image-url('settings-gear.png') center center no-repeat, -moz-linear-gradient(0% 100% 90deg,#E8F4F8, #FFFFFF);
         background: image-url('settings-gear.png') center center no-repeat, -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#E8F4F8));
@@ -389,7 +388,7 @@ body.projects-new li.projects a {
       }
     }
 
-    fieldset.buttons {
+    fieldset.actions {
       .cancel {
         margin-left: 10px;
       }
@@ -414,3 +413,4 @@ body.projects-new li.projects a {
     }
   }
 }
+

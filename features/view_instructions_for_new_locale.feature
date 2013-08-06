@@ -8,5 +8,7 @@ Feature: View instructions for new locale
       | hello         | one | en     |
     When I go to the home page
     And I follow "Project 1"
+    And I follow "Locale: en"
     And I follow "Add a new locale..."
     Then I should see "Adding new locales to Copycopter"
+

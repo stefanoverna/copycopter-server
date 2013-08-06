@@ -24,7 +24,7 @@ group :development, :test do
   gem 'foreman'
   gem 'launchy'
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails', "~> 3.6.0"
 end
 
 group :test do

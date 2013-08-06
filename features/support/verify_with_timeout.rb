@@ -1,9 +1,11 @@
+require 'timeout'
+
 module VerifyWithTimeout
   def verify_with_timeout(selector, failure_message)
-    Capybara.timeout do
+    Timeout::timeout(5) do
       page.has_css?(selector) && yield(find(selector))
     end
-  rescue Capybara::TimeoutError
+  rescue Timeout::Error
     if page.has_css?(selector)
       raise failure_message
     else
@@ -13,3 +15,4 @@ module VerifyWithTimeout
 end
 
 World VerifyWithTimeout
+

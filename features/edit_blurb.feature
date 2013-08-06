@@ -51,9 +51,9 @@ Feature: Blurb Editing
   @javascript
   Scenario: Apply formatting to blurbs
     Given the following localizations exist in the "Project 1" project:
-      | key      | draft_content |
-      | test.key | <p>hello</p>  |
-    When I go to the edit blurb page for "test.key" on "Project 1"
+      | key           | draft_content |
+      | test.key_html | <p>hello</p>  |
+    When I go to the edit blurb page for "test.key_html" on "Project 1"
     And I apply the "bold" editor function to "ell"
     And I apply the "italic" editor function to "el"
     And I press "Save Blurb"
@@ -63,9 +63,9 @@ Feature: Blurb Editing
   @javascript
   Scenario: Edit blurbs using HTML
     Given the following localizations exist in the "Project 1" project:
-      | key      | draft_content |
-      | test.key | <p>hello</p>  |
-    When I go to the edit blurb page for "test.key" on "Project 1"
+      | key           | draft_content |
+      | test.key_html | <p>hello</p>  |
+    When I go to the edit blurb page for "test.key_html" on "Project 1"
     And I apply the "bold" editor function to "ell"
     And I follow "Edit as HTML"
     Then the "Content" field should contain "<p>h<b>ell</b>o</p>"
@@ -77,11 +77,18 @@ Feature: Blurb Editing
     Then I should see "<p>h<i>ell</i>o</p>"
 
   @javascript
-  Scenario: Switch between HTML and simple editing
+  Scenario: Edit non-HTML blurbs
     Given the following localizations exist in the "Project 1" project:
       | key      | draft_content |
       | test.key | <p>hello</p>  |
-    When I go to the edit blurb page for "test.key" on "Project 1"
+    Then no visible elements should contain "Edit as HTML"
+
+  @javascript
+  Scenario: Switch between HTML and simple editing
+    Given the following localizations exist in the "Project 1" project:
+      | key           | draft_content |
+      | test.key_html | <p>hello</p>  |
+    When I go to the edit blurb page for "test.key_html" on "Project 1"
     And I apply the "bold" editor function to "ell"
     And I follow "Edit as HTML"
     And I fill in "Content" with "<p>h<i>ell</i>o</p>"
@@ -96,9 +103,9 @@ Feature: Blurb Editing
   @javascript
   Scenario: Strip extra paragraph tags in simple editing
     Given the following localizations exist in the "Project 1" project:
-      | key      | draft_content |
-      | test.key | hello         |
-    When I go to the edit blurb page for "test.key" on "Project 1"
+      | key           | draft_content |
+      | test.key_html | hello         |
+    When I go to the edit blurb page for "test.key_html" on "Project 1"
     And I apply the "bold" editor function to "ell"
     And I press "Save Blurb"
     And I go to the blurbs index for the "Project 1" project
@@ -108,9 +115,9 @@ Feature: Blurb Editing
   @javascript
   Scenario: Insert newlines into an inline segment
     Given the following localizations exist in the "Project 1" project:
-      | key      | draft_content |
-      | test.key | hello         |
-    When I go to the edit blurb page for "test.key" on "Project 1"
+      | key           | draft_content |
+      | test.key_html | hello         |
+    When I go to the edit blurb page for "test.key_html" on "Project 1"
     And I add a newline after "ell" in the editor
     And I press "Save Blurb"
     And I go to the blurbs index for the "Project 1" project
@@ -119,9 +126,9 @@ Feature: Blurb Editing
   @javascript
   Scenario: Remember editor mode
     Given the following localizations exist in the "Project 1" project:
-      | key      |
-      | test.key |
-    When I go to the edit blurb page for "test.key" on "Project 1"
+      | key           |
+      | test.key_html |
+    When I go to the edit blurb page for "test.key_html" on "Project 1"
     And I follow "Edit as HTML"
     And I press "Save Blurb"
     Then no visible elements should contain "Edit HTML"

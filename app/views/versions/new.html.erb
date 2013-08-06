@@ -23,8 +23,8 @@
   <%= render 'form', :form => form, :version => @version,
         :localization => @localization %>
 
-  <%= form.buttons do %>
-    <%= form.commit_button 'Save Blurb' %>
+  <%= form.actions do %>
+    <%= form.action(:submit, label: 'Save Blurb') %>
 
     <%= link_to project_blurb_path(@project, @localization.blurb),
           :method => :delete,
@@ -34,3 +34,4 @@
     <% end -%>
   <% end %>
 <% end -%>
+

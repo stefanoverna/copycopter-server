@@ -42,7 +42,8 @@ end
 
 When /^I click ([^"].*)$/ do |named_element|
   selector = selector_for(named_element)
-  find(selector).click
+  element = find(selector)
+  element.click
 end
 
 Then /^I should see "([^"]*)" within ([^"].*)$/ do |content, named_element|
@@ -56,3 +57,4 @@ Then /^I should not see "([^"]*)" within ([^"].*)$/ do |content, named_element|
     page.should have_no_content(content)
   end
 end
+

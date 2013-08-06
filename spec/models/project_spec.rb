@@ -26,8 +26,8 @@ describe Project do
   it { should validate_presence_of(:username) }
 
   it 'should require case-sensitive unique values for api_key' do
-    project = Factory(:project)
-    other_project = Factory(:project)
+    project = create(:project)
+    other_project = create(:project)
     project.api_key = other_project.api_key
 
     project.should_not be_valid
@@ -37,7 +37,7 @@ end
 
 describe Project, '.create' do
   before do
-    @project = Factory(:project, :api_key => nil)
+    @project = create(:project, :api_key => nil)
   end
 
   it 'creates an English locale' do
@@ -59,7 +59,7 @@ describe Project, 'create_defaults' do
     default_creator = stub('Default creator', :create => nil)
     DefaultCreator.stubs :new => default_creator
 
-    project = Factory(:project)
+    project = create(:project)
     defaults = stub('Defaults')
 
     project.create_defaults defaults
@@ -71,7 +71,7 @@ end
 
 describe Project, 'default_locale' do
   before do
-    @project = Factory(:project)
+    @project = create(:project)
     @project.locales.stubs :first_enabled => 'expected'
   end
 
@@ -82,8 +82,8 @@ end
 
 describe Project, 'deploy!' do
   it 'publishes the latest version of each localization on deploy' do
-    project = Factory(:project)
-    other_project_localization = Factory(:localization, :draft_content => 'ignore me')
+    project = create(:project)
+    other_project_localization = create(:localization, :draft_content => 'ignore me')
     project.create_defaults(
       'en.one' => 'publish me',
       'en.two' => 'me too'
@@ -118,7 +118,7 @@ describe Project, 'destroy' do
 end
 
 describe Project, 'draft_json' do
-  let(:project) { Factory(:project) }
+  let(:project) { create(:project) }
 
   before { project.create_defaults('en.test.key' => 'value') }
 
@@ -140,7 +140,7 @@ end
 
 describe Project, 'etag' do
   it 'returns a different draft etag after updating draft content' do
-    project = Factory(:project)
+    project = create(:project)
     project.create_defaults('en.test.one' => 'value')
     original_etag = project.reload.etag
     Timecop.travel 1.second.from_now
@@ -153,7 +153,7 @@ describe Project, 'etag' do
   end
 
   it 'returns the same draft etag without updating draft content' do
-    project = Factory(:project)
+    project = create(:project)
     project.create_defaults('en.test.one' => 'value')
     original_etag = project.reload.etag
     Timecop.travel(1.second.from_now)
@@ -162,7 +162,7 @@ describe Project, 'etag' do
   end
 
   it 'updates the etag when a blurb is deleted' do
-    project = Factory(:project)
+    project = create(:project)
     project.create_defaults('en.test.one' => 'value')
     project.deploy!
     project.reload
@@ -176,7 +176,7 @@ describe Project, 'etag' do
   end
 
   it 'updates etag when deployed' do
-    project = Factory(:project)
+    project = create(:project)
     project.create_defaults 'en.test.one' => 'value'
     project.deploy!
     project.create_defaults 'en.test.two' => 'value'
@@ -192,12 +192,12 @@ end
 
 describe Project, 'locale' do
   before do
-    @project = Factory(:project)
+    @project = create(:project)
   end
 
   context 'given an id' do
     before do
-      @locale = Factory(:locale, :project => @project)
+      @locale = create(:locale, :project => @project)
     end
 
     it 'returns the locale by id' do
@@ -217,7 +217,7 @@ describe Project, 'locale' do
 end
 
 describe Project, 'published_json' do
-  let(:project) { Factory(:project) }
+  let(:project) { create(:project) }
 
   before do
     project.create_defaults('en.test.key' => 'value')
@@ -245,7 +245,7 @@ end
 
 describe Project, '.regenerate_caches' do
   it 'generates cached json' do
-    project = Factory(:project)
+    project = create(:project)
     project.create_defaults 'en.test.key' => 'value'
     project.deploy!
     project.blurbs.first.localizations.first.revise(
@@ -280,3 +280,4 @@ describe Project, "api_key" do
     api_key
   end
 end
+

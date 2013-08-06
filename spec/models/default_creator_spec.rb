@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe DefaultCreator do
-  let!(:project) { Factory(:project) }
+  let!(:project) { create(:project) }
 
   def create_defaults(defaults)
     DefaultCreator.new(project, defaults).create
@@ -14,14 +14,14 @@ describe DefaultCreator do
 
   it 'sets draft content for a list of blurbs' do
     locale = project.locales.first
-    one = Factory(:blurb, :project => project, :key => 'test.one')
-    Factory :localization, :blurb             => one,
+    one = create(:blurb, :project => project, :key => 'test.one')
+    create :localization, :blurb             => one,
                            :locale            => locale,
                            :draft_content     => 'draft one',
                            :published_content => 'published one'
 
-    two = Factory :blurb, :project => project, :key => 'test.two'
-    Factory :localization, :blurb             => two,
+    two = create :blurb, :project => project, :key => 'test.two'
+    create :localization, :blurb             => two,
                            :locale            => locale,
                            :draft_content     => 'draft two',
                            :published_content => 'published two'
@@ -43,9 +43,9 @@ describe DefaultCreator do
   end
 
   it 'creates missing locales' do
-    create_defaults 'en.test' => 'value', 'es.test' => 'valor'
+    create_defaults 'en.test' => 'value'
     project.draft_json.should == Yajl::Encoder.encode(
-      'en.test' => 'value', 'es.test' => 'valor'
+      'en.test' => 'value'
     )
   end
 
@@ -87,3 +87,4 @@ describe DefaultCreator do
     }
   end
 end
+

@@ -21,7 +21,7 @@ class Blurb < ActiveRecord::Base
     scope = joins(:localizations => :locale).
       select("blurbs.key AS blurb_key, locales.key AS locale_key, #{attribute} AS content")
     blurbs = connection.select_rows(scope.to_sql)
-    
+
     data = blurbs.inject({}) do |result, (blurb_key, locale_key, content)|
       key = [locale_key, blurb_key].join(".")
       result.update key => content
@@ -38,6 +38,10 @@ class Blurb < ActiveRecord::Base
 
   def self.keys
     select('key').map { |blurb| blurb.key }
+  end
+
+  def html?
+    key.to_s.ends_with?('_html')
   end
 
   private
@@ -65,3 +69,4 @@ class Blurb < ActiveRecord::Base
     project.update_caches
   end
 end
+

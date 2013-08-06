@@ -8,7 +8,7 @@ module NamedElements
     when /blurb search form/
       '#blurb_search'
     when /the "([^"]+)" editor button/
-      ".wysiwyg .toolbar li:contains('#{$1}')"
+      ".wysiwyg .toolbar li.#{$1}"
     when /^the "([^"]+)" plan options$/
       ".plan.#{$1.downcase}"
     when /^the "([^"]+)" plan$/
@@ -22,3 +22,4 @@ module NamedElements
 end
 
 World NamedElements
+

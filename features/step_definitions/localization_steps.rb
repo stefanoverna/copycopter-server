@@ -14,7 +14,7 @@ Given /^the following localizations exist in the "([^"]+)" project:$/ do |projec
   table.hashes.each do |hash|
     blurb = project.blurbs.find_or_create_by_key(hash.delete('key'))
     locale = project.locales.find_or_create_by_key(hash.delete('locale') || 'en')
-    Factory :localization, hash.merge(:blurb => blurb, :locale => locale)
+    FactoryGirl.create :localization, hash.merge(:blurb => blurb, :locale => locale)
   end
 end
 
@@ -23,8 +23,8 @@ Given /^the following blurb is published:$/ do |table|
     project = Project.find_by_name!(hash['project'])
     published_content = hash['content'] || ''
     locale = project.locales.find_or_create_by_key(hash['locale'] || 'en')
-    blurb = project.blurbs.find_or_create_by_key(hash['key'] || Factory.next(:key))
-    Factory(:localization, :blurb => blurb, :locale => locale,
+    blurb = project.blurbs.find_or_create_by_key(hash['key'] || FactoryGirl.next(:key))
+    FactoryGirl.create(:localization, :blurb => blurb, :locale => locale,
       :draft_content => published_content).publish
   end
 end
@@ -42,3 +42,4 @@ Then /^the following blurb should exist in the "([^"]+)" project:$/ do |project_
     end
   end
 end
+

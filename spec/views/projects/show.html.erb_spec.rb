@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe '/projects/show' do
   before do
-    @project = Factory(:project)
+    @project = create(:project)
     @project.create_defaults 'en.test' => 'value'
-    @localizations = [Factory.stub(:localization)]
+    @localizations = [build_stubbed(:localization)]
     @locale = @project.locales.first
 
     view.stubs :cache
@@ -17,3 +17,4 @@ describe '/projects/show' do
     view.should have_received(:cache).with(:action_suffix => suffix)
   end
 end
+

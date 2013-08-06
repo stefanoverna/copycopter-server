@@ -9,9 +9,9 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @locale = @project.locale(params[:locale_id])
 
-    if stale? :etag => @project.etag
+    if stale? :etag => @project.etag || Rails.env.development?
       @localizations = @project.localizations.in_locale_with_blurb(@locale)
     end
   end
-
 end
+
