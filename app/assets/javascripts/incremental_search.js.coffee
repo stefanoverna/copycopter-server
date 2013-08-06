@@ -16,7 +16,7 @@ $.fn.incrementalSearch = (options) ->
       index++
     true
 
-  renderResults = (filter) =>
+  renderResults = (filter, missing) =>
     list = $("<ul/>")
     resultCount = 0
     $.each options.items, ->
@@ -28,25 +28,35 @@ $.fn.incrementalSearch = (options) ->
     @append list
     resultCount
 
-  search = (query) =>
+  search = (query, onlyMissing) =>
     timeout = null
     $(options.noResults).hide()
-    if query is ""
+    if query is "" and not onlyMissing
       $(options.viewAll).show()
       @html ""
     else
       $(options.viewAll).hide()
       searchTerms = query.toLowerCase().split(" ")
       resultCount = renderResults((item) ->
-        matchQuery item, options.search, searchTerms
+        matchMissing = if onlyMissing
+          !item['draft_content'] or item['draft_content'] == ""
+        else
+          true
+
+        matchQuery(item, options.search, searchTerms) && matchMissing
       )
       $(options.noResults).show()  if resultCount is 0
 
-  $(options.queryInput).keyup ->
-    query = $(this).val()
+  $(options.onlyMissingInput).click -> updateSearch()
+  $(options.queryInput).keyup -> updateSearch()
+
+  updateSearch = ->
+    queryInput = $(options.queryInput)
+    query = if queryInput.is(".prefilled") then "" else queryInput.val()
+    missing = $(options.onlyMissingInput).is(':checked')
     clearTimeout timeout  if timeout
     timeout = setTimeout(->
-      search query
+      search(query, missing)
     , 250)
 
   removeStart = ->
@@ -55,9 +65,17 @@ $.fn.incrementalSearch = (options) ->
     $(options.searchContainter).removeClass "start", "fast"
 
   $(options.queryInput).focus removeStart
+  $(options.onlyMissingInput).click removeStart
+
   $(options.viewAll).click ->
     $(this).hide()
-    renderResults()
+    renderResults(false, false)
+    false
+
+  $(options.viewMissing).click ->
+    $(this).hide()
+    renderResults(false, true)
     false
 
   return @
+

@@ -24,24 +24,6 @@
   border-radius: 5px;
   @include box-shadow(inset 0 -1px 0 #fff);
 
-  label {
-    display: none;
-    float: left;
-    font: normal 14px $header;
-    margin-top: 4px;
-    width: 210px;
-  }
-
-  input {
-    background: #fff image-url("search.png") 6px center no-repeat;
-    border: 1px solid #8ea5ac;
-    padding: 8px 6px 8px 30px;
-    width: 527px;
-    font: bold 22px $header;
-    @include box-shadow(inset 0 15px 40px rgba(#98cee3,.3), 0 0 0 1px #fff);
-
-  }
-
   input.prefilled {
     color: #9cb8c1;
   }
@@ -54,20 +36,22 @@
   margin: -19px -30px 20px;
   @include box-shadow(inset 0 -1px 0 #fff);
 
-  label {
+  label.search {
     display: none;
-    float: left;
-    font: normal 14px $header;
-    margin-top: 4px;
-    width: 210px;
   }
 
-  input {
+  label {
+    font: normal 14px $header;
+    margin-top: 4px;
+  }
+
+  input[type="text"] {
     background: #fff image-url("search.png") 6px center no-repeat;
-    border: 1px solid #ccc;
+    border: 1px solid #8ea5ac;
     padding: 8px 6px 8px 30px;
-    width: 562px;
-    @include box-shadow(inset 0 2px 2px rgba(0,0,0,.1));
+    width: 527px;
+    font: bold 22px $header;
+    @include box-shadow(inset 0 15px 40px rgba(#98cee3,.3), 0 0 0 1px #fff);
   }
 
   input.prefilled {
@@ -131,23 +115,27 @@
 }
 
 #view_all {
-  margin: 0 -30px 0;
   position: absolute;
   display: block;
   bottom: 0;
+  left: 0;
+  right: 0;
+  @include box-shadow(inset 0 1px 0 #fff);
+  border-radius: 0 0 5px 5px;
+  text-shadow: 0 1px 0 #fff;
+  border-top: 1px solid #abc2c9;
+  background: #DAEDF4;
+  color: #1d2c31;
+  @extend .clearfix;
 
   a {
     font: 14px $header;
-    border-top: 1px solid #abc2c9;
-    background: #DAEDF4;
     color: #1d2c31;
-    text-shadow: 0 1px 0 #fff;
     display: block;
     padding: 10px 30px;
-    width: 598px;
+    border-radius: 0 0 5px 0;
     text-align: right;
-    @include box-shadow(inset 0 1px 0 #fff);
-    border-radius: 0 0 5px 5px;
+    @include box-sizing(border-box);
 
     span {
       font-weight: bold;

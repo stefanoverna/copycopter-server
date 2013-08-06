@@ -30,8 +30,12 @@
 
   <div id='blurb_search' class='start'>
     <fieldset class='inputs'>
-      <label for='search_blurbs'>Search for the text you're looking to replace</label>
+      <label class='search' for='search_blurbs'>Search for the text you're looking to replace</label>
       <input type='text' id='search_blurbs' class='prefilled' />
+      <label for='view_missing'>
+        <input type='checkbox' name='view_missing' id='view_missing'/> 
+        Filter only blurbs with missing translation
+      </label>
     </fieldset>
   </div>
 
@@ -52,7 +56,9 @@
     </a>
   </script>
 
-  <div id='view_all'><a href='#'>View all <%= pluralize(@localizations.size, 'blurb') %></a></div>
+  <div id='view_all'>
+    <a href='#'>View all <%= pluralize(@localizations.size, 'blurb') %></a>
+  </div>
 
   <% content_for :javascript do -%>
     <script type='text/javascript'>
@@ -66,6 +72,7 @@
             <% end -%>
           noResults: '#no_results',
           queryInput: '#search_blurbs',
+          onlyMissingInput: '#view_missing',
           render: function (item) {
             var url = '/localizations/' + item.id + '/versions/new';
             var li = $('<li>').html(template);
@@ -82,3 +89,4 @@
     </script>
   <% end -%>
 <% end -%>
+
