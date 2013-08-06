@@ -1,7 +1,7 @@
 Copycopter
 ==========
 
-[![Build Status](https://secure.travis-ci.org/copycopter/copycopter-server.png)](http://travis-ci.org/copycopter/copycopter-server)
+[![Build Status](https://travis-ci.org/stefanoverna/copycopter-server.png?branch=master)](https://travis-ci.org/stefanoverna/socialmux)
 
 Copycopter is a service for editing the copy text of a Rails application.
 
@@ -85,3 +85,4 @@ License
 
 Copycopter Server is free software, and may be redistributed under the terms
 specified in the MIT-LICENSE file.
+
