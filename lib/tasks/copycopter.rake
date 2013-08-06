@@ -18,6 +18,8 @@ namespace :copycopter do
   task :clear_blurbs => :environment do
     project = Project.where(:name => ENV['NAME']).first
     project.delete_localizations_and_blurbs
+    project.update_caches
+
     puts "Project #{project.name} cleared!"
   end
 
