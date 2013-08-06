@@ -1,4 +1,6 @@
-source :rubygems
+source 'https://rubygems.org'
+
+ruby '1.9.3'
 
 gem 'dynamic_form', '1.1.4'
 gem 'flutie', '1.3.3'
@@ -36,3 +38,4 @@ group :test do
   gem 'shoulda-matchers', '1.0.0'
   gem 'timecop', '0.3.5'
 end
+
