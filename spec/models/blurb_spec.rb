@@ -56,7 +56,7 @@ describe Blurb, 'given draft and published content for several blurbs and locale
 
   it 'returns published hash' do
     Blurb.to_hash(:published_content).should include(:data => {
-      'en.test.one' => 'published one', 
+      'en.test.one' => 'published one',
       'en.test.two' => 'published two',
       'fr.test.two' => 'publié'
     })
@@ -95,3 +95,4 @@ describe Blurb, 'given draft and published content for several blurbs and locale
 
   end
 end
+

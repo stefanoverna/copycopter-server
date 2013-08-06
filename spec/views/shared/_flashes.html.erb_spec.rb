@@ -22,3 +22,4 @@ describe "/shared/_flashes" do
     end
   end
 end
+
