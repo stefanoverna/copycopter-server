@@ -15,6 +15,8 @@ display published content in production, and draft in all other environments.
 A developer can issue a deploy, which marks the latest Version of all Blurbs as
 published.
 
+Blurbs with an I18n key ending with `_html` will present a WYSIWYG editor.
+
 Setup
 -----
 
@@ -35,6 +37,11 @@ Adding a Project
 ----------------
 
     heroku run rake copycopter:project NAME=Iora USERNAME=Copy PASSWORD=Copter
+
+Clear up all the Project stored blurbs
+----------------------------
+
+    heroku run rake copycopter:clear_blurbs NAME=Iora
 
 Updating a Projects password
 ----------------------------
