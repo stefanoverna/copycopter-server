@@ -6,7 +6,8 @@ Editor = {
         controls: {
           bold: { visible: true },
           italic: { visible: true },
-          insertUnorderedList: { visible: true }
+          insertUnorderedList: { visible: true },
+          removeFormat: { visible: true }
         },
         events: {
           keyup: unpublish
@@ -72,3 +73,4 @@ Editor = {
     });
   }
 };
+

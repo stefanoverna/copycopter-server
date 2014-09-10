@@ -14,6 +14,18 @@ class Version < ActiveRecord::Base
   after_create :update_project_caches, :unless => :first_version?
 
   def revise(attributes = {})
+
+    if attributes[:content] && localization.blurb.html?
+      config = Sanitize::Config.merge(
+        Sanitize::Config::BASIC,
+        elements: Sanitize::Config::BASIC[:elements] + %w(h2 h3 h4 h5 h6 hr),
+        attributes: Sanitize::Config::BASIC[:attributes].merge(all: ['id']),
+        allow_comments: false,
+        remove_contents: %w(meta style)
+      )
+      attributes[:content] = Sanitize.clean(attributes[:content], config).strip
+    end
+
     localization.
       versions.
       build self.attributes.merge('published' => published).merge(attributes)
@@ -70,3 +82,4 @@ class Version < ActiveRecord::Base
     number == 1
   end
 end
+

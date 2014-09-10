@@ -12,6 +12,7 @@ gem 'rails', '~> 3.2.6'
 gem 'thin'
 gem 'yajl-ruby', require: 'yajl'
 gem "jquery-rails"
+gem "sanitize", '~> 3.0.2'
 
 group :assets do
   gem 'sass-rails'
