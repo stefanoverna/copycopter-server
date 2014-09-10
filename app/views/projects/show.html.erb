@@ -76,12 +76,12 @@
           render: function (item) {
             var url = '/localizations/' + item.id + '/versions/new';
             var li = $('<li>').html(template);
-              li.find('p').text(item.draft_content);
+              li.find('p').text(item.excerpt_draft_content);
               li.find('h4').text(item.key);
               li.find('a').attr('href', url);
             return li;
           },
-          search: ['key', 'draft_content'],
+          search: ['key', 'excerpt_draft_content'],
           searchContainter: '#blurb_search',
           viewAll: '#view_all a'
         });

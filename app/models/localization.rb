@@ -14,7 +14,11 @@ class Localization < ActiveRecord::Base
   end
 
   def as_json(options = nil)
-    super :only => [:id, :draft_content], :methods => [:key]
+    super :only => [:id], :methods => [:key, :excerpt_draft_content]
+  end
+
+  def excerpt_draft_content
+    Sanitize.clean(draft_content).strip.truncate(400)
   end
 
   def key
@@ -88,3 +92,4 @@ class Localization < ActiveRecord::Base
     end
   end
 end
+

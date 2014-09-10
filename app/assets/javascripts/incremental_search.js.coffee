@@ -39,7 +39,7 @@ $.fn.incrementalSearch = (options) ->
       searchTerms = query.toLowerCase().split(" ")
       resultCount = renderResults((item) ->
         matchMissing = if onlyMissing
-          !item['draft_content'] or item['draft_content'] == ""
+          !item['excerpt_draft_content'] or item['excerpt_draft_content'] == ""
         else
           true
 
