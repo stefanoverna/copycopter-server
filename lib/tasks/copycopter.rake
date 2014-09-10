@@ -47,5 +47,12 @@ namespace :copycopter do
       puts "You must know the old password to the project to update to the new password."
     end
   end
+
+  desc 'Returns the list of projects'
+  task :projects => :environment do
+    Project.all.each do |project|
+      puts "#{project.name} - user: #{project.username} pass: #{project.password}"
+    end
+  end
 end
 
