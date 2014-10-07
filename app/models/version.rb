@@ -23,7 +23,10 @@ class Version < ActiveRecord::Base
         allow_comments: false,
         remove_contents: %w(meta style)
       )
-      attributes[:content] = Sanitize.clean(attributes[:content], config).strip
+      text = Sanitize.clean(attributes[:content], config).strip
+      text.gsub!(/%%7b([^%]+)%7d/i, '%{\1}')
+
+      attributes[:content] = text
     end
 
     localization.
