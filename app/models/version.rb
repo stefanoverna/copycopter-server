@@ -18,8 +18,12 @@ class Version < ActiveRecord::Base
     if attributes[:content] && localization.blurb.html?
       config = Sanitize::Config.merge(
         Sanitize::Config::BASIC,
-        elements: Sanitize::Config::BASIC[:elements] + %w(h2 h3 h4 h5 h6 hr),
-        attributes: Sanitize::Config::BASIC[:attributes].merge(all: ['id']),
+        elements: Sanitize::Config::BASIC[:elements] + %w(h1 h2 h3 h4 h5 h6 hr table tr td th tbody thead),
+        attributes: Sanitize::Config::BASIC[:attributes].merge(
+          all: ['id', 'class'],
+          'td' => ['colspan', 'rowspan'],
+          'th' => ['colspan', 'rowspan']
+        ),
         allow_comments: false,
         remove_contents: %w(meta style)
       )
